@@ -21,12 +21,14 @@ RUN apt-get install -y libtool pkg-config zlib1g-dev zlib1g libglib2.0-dev libfd
 RUN cd /root && git clone https://github.com/Torlus/qemu.git && cd qemu && git checkout rpi
 COPY scripts/install_qemu.sh /root/qemu/
 RUN cd /root/qemu && ./install_qemu.sh
+RUN rm -rf /root/qemu
 
 # Compile and install GDB
 RUN apt-get install -y texinfo
 RUN cd /root && wget http://ftp.gnu.org/gnu/gdb/gdb-7.10.tar.xz && tar xvf gdb-7.10.tar.xz && rm gdb-7.10.tar.xz
 COPY scripts/install_gdb.sh /root/gdb-7.10/
 RUN cd /root/gdb-7.10 && ./install_gdb.sh
+RUN rm -rf /root/gdb-7.10
 
 RUN sudo rm -rf /var/lib/apt/lists/*
 
